@@ -28,11 +28,23 @@ shiftBy : Nat -> List Nat -> List Nat
 shiftBy k xs = (drop k xs) ++ (take k xs)
 
 
-sum' : List Nat -> Nat
-sum' [] = 0
-sum' xs = sum (takeTwins (zip xs (shiftBy 1 xs)))
+solve : Nat -> List Nat -> Nat
+solve _ [] = 0
+solve n xs = sum (takeTwins (zip xs (shiftBy n xs)))
 
 
 solve1 : String -> Nat
-solve1 raw = sum' (toListNat raw)
+solve1 raw = solve 1 (toListNat raw)
 
+
+half : List Nat -> Nat
+half [] = 0
+half xs = assert_total $ length xs `div` 2
+
+
+solve2 : String -> Nat
+solve2 raw =
+    solve (half xs) xs
+    where
+        xs : List Nat
+        xs = toListNat raw

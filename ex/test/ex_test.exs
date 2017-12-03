@@ -3,6 +3,7 @@ defmodule ExTest do
 
   doctest Aoc.Day1
   doctest Aoc.Day2
+  doctest Aoc.Day3
 
   test "day2 part 1" do
     input = File.stream!("./data/day2.txt")

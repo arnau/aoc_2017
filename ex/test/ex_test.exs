@@ -5,6 +5,7 @@ defmodule ExTest do
   doctest Aoc.Day2
   doctest Aoc.Day3
   doctest Aoc.Day4
+  doctest Aoc.Day5
 
   test "day2 part 1" do
     input = File.stream!("./data/day2.txt")
@@ -29,6 +30,13 @@ defmodule ExTest do
 
     assert Aoc.Day4.solve_b(input) == 186
   end
+
+  test "day5 part 1" do
+    input = File.stream!("./data/day5.txt")
+
+    assert Aoc.Day5.solve(input) == 360603
+  end
+
 
 end
 

@@ -37,6 +37,10 @@ defmodule ExTest do
     assert Aoc.Day5.solve(input) == 360603
   end
 
+  @tag :slow
+  test "day5 part 2" do
+    input = File.stream!("./data/day5.txt")
 
+    assert Aoc.Day5.solve_b(input) == 25347697
+  end
 end
-

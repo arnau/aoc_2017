@@ -20,6 +20,24 @@ defmodule Aoc.Day5 do
   end
 
   @doc """
+    iex> Aoc.Day5.solve_b(["0", "3", "0", "1", "-3"])
+    10
+  """
+  def solve_b(xs) do
+    data = xs
+          |> Stream.map(&String.trim/1)
+          |> Stream.map(&String.to_integer/1)
+          |> Stream.with_index()
+          |> Stream.map(fn ({x, i}) -> {i, x} end)
+          |> Map.new()
+
+    {:cont, {0, data, 0}}
+    |> Stream.unfold(&jump_gen_b/1)
+    |> Enum.reduce_while(0, fn (res, _) -> res end)
+  end
+
+
+  @doc """
     iex> Aoc.Day5.jump({:cont, {0, %{0 => 0, 1 => 3, 2 => 0, 3 => 1, 4 => -3}, 0}})
     {:cont, {0, %{0 => 1, 1 => 3, 2 => 0, 3 => 1, 4 => -3}, 1}}
 
@@ -59,5 +77,27 @@ defmodule Aoc.Day5 do
 
   def jump_gen(current) do
     {current, jump(current)}
+  end
+
+  def jump_gen_b(current) do
+    {current, jump_b(current)}
+  end
+
+  @doc """
+    # iex> Aoc.Day5.jump({:cont, {9, %{0 => 2, 1 => 3, 2 => 2, 3 => 3, 4 => -1}, 9}})
+    # {:halt, 10}
+  """
+  def jump_b(res = {:halt, _steps}), do: res
+  def jump_b({:cont, {offset, xs, steps}}) do
+    {offset, xs} = Map.get_and_update(xs, offset, fn
+                     (x) when x >= 3 -> {offset + x, x - 1}
+                     (x) -> {offset + x, x + 1}
+                   end)
+
+    if is_nil(Map.get(xs, offset)) do
+      {:halt, steps + 1}
+    else
+      {:cont, {offset, xs, steps + 1}}
+    end
   end
 end

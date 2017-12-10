@@ -52,4 +52,10 @@ defmodule ExTest do
     assert Aoc.Day6.solve(input) == 12841
   end
 
+  @tag :slow
+  test "day6 part 2" do
+    input = "4 10 4 1 8 4 9 14 5 1 14 15 0 15 3 5"
+
+    assert Aoc.Day6.solve_b(input) == 8038
+  end
 end

@@ -10,6 +10,31 @@ defmodule Aoc.Day6 do
     |> count_cycles()
   end
 
+  def solve_b(str) do
+    str
+    |> String.split()
+    |> Enum.map(&String.to_integer/1)
+    |> count_cycles_b()
+  end
+
+  @doc """
+    iex> Aoc.Day6.count_cycles_b([0, 2, 7, 0])
+    4
+  """
+  def count_cycles_b(banks) do
+    {0, banks}
+    |> Stream.unfold(&reallocate_cycle/1)
+    |> Enum.reduce_while([], fn ({n, xs}, yss) ->
+      match = Enum.find(yss, fn ({_, ys}) -> ys == xs end)
+      if match do
+        {m, _} = match
+        {:halt, n - m}
+      else
+        {:cont, [{n, xs} | yss]}
+      end
+    end)
+  end
+
   @doc """
     iex> Aoc.Day6.count_cycles([0, 2, 7, 0])
     5

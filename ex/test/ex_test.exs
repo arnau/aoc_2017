@@ -65,4 +65,10 @@ defmodule ExTest do
 
     assert Aoc.Day7.solve(input) == "airlri"
   end
+
+  test "day7 part 2" do
+    input = File.stream!("./data/day7.txt")
+
+    assert Aoc.Day7.solve_b(input) == {:error, {24, [{666, 1614}, {1215, 1623}, {504, 1614}, {579, 1614}, {58, 1614}]}, 1206}
+  end
 end

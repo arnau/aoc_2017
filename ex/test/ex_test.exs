@@ -8,6 +8,7 @@ defmodule ExTest do
   doctest Aoc.Day5
   doctest Aoc.Day6
   doctest Aoc.Day7
+  doctest Aoc.Day8
 
   test "day2 part 1" do
     input = File.stream!("./data/day2.txt")
@@ -70,5 +71,11 @@ defmodule ExTest do
     input = File.stream!("./data/day7.txt")
 
     assert Aoc.Day7.solve_b(input) == {:error, {24, [{666, 1614}, {1215, 1623}, {504, 1614}, {579, 1614}, {58, 1614}]}, 1206}
+  end
+
+  test "day8 part 1" do
+    input = File.stream!("./data/day8.txt")
+
+    assert Aoc.Day8.solve(input) == 5215
   end
 end
